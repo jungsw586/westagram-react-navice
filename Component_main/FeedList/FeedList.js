@@ -15,7 +15,6 @@ class FeedList extends React.Component {
             feedsData: articleData,
             logOnUserData: logOnUserData,
             onlineUserName: logOnUserData[0].logOnUserName,
-            //commentsStatus: '',
         }
     }
     
@@ -30,32 +29,60 @@ class FeedList extends React.Component {
         return (
             <ScrollView style={feedList_style.feedListScrollViewContainer}>
                 <StoryList />
-                {feedsData.map((el,id)=>{
-                    let _feedsData = [];
-                    _feedsData.push(
+                <FlatList
+                    data={feedsData}
+                    renderItem={({item})=>
                         <View
                             style={feedList_style.feedListContainer}
-                            key={id}
                         >
                             <Feedheader
-                                writerName={el.writerUserName}
-                                writerProfileImg={el.writerUserProfile}
+                                writerName={item.writerUserName}
+                                writerProfileImg={item.writerUserProfile}
                             />
                             <FeedMainImage
-                                imgSrc={el.articleImg}
+                                imgSrc={item.articleImg}
                             />
                             <FeedInteraction/>
                             <FeedContentBox
                                 setStateFunc={this.handlerSetState}
-                                feedEachData={el}
+                                feedEachData={item}
                                 logOnUserData={logOnUserData}
                                 onlineUserName={onlineUserName}
                             />
                         </View>
-                    )
-                    return _feedsData;
-                })}
+                    }
+                    keyExtractor={item => item.id.toString()}
+                />
             </ScrollView>
+            
+            // <ScrollView style={feedList_style.feedListScrollViewContainer}>
+            //     <StoryList />
+            //     {feedsData.map((el,id)=>{
+            //         let _feedsData = [];
+            //         _feedsData.push(
+            //             <View
+            //                 style={feedList_style.feedListContainer}
+            //                 key={id}
+            //             >
+            //                 <Feedheader
+            //                     writerName={el.writerUserName}
+            //                     writerProfileImg={el.writerUserProfile}
+            //                 />
+            //                 <FeedMainImage
+            //                     imgSrc={el.articleImg}
+            //                 />
+            //                 <FeedInteraction/>
+            //                 <FeedContentBox
+            //                     setStateFunc={this.handlerSetState}
+            //                     feedEachData={el}
+            //                     logOnUserData={logOnUserData}
+            //                     onlineUserName={onlineUserName}
+            //                 />
+            //             </View>
+            //         )
+            //         return _feedsData;
+            //     })}
+            // </ScrollView>
         )
     }
 }
@@ -68,4 +95,10 @@ const feedList_style = StyleSheet.create({
     feedListContainer: {
         flexDirection: "column",
     },
+    test: {
+        borderColor: "#fff",
+        borderWidth: 1,
+        fontSize: 100,
+        color: "#fff",
+    }
 })

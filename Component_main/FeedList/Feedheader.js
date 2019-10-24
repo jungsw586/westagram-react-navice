@@ -4,6 +4,7 @@ import moreImg from './FeedImages/moreImage.png';
 
 export default class Feedheader extends Component {
     render() {
+        console.log('render')
         return (
             <View style={feedHeader_style.feedHeaderContainer}>
                 <View style={feedHeader_style.feedHeaderContainer}>
